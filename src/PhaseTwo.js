@@ -4,9 +4,9 @@ import './PhaseTwo.css';
 
 export default function PhaseTwo({adverts, endPhaseTwo}) {
     const allAdverts = adverts
-    const [seenAdverts, setSeenAdverts] = useState()
+    const [images, setImages] = useState()
 
-    useEffect(() => {
+    function initImages() {
         const tmpArray = []
         let nonameAds = allAdverts.filter(ad => ad.includes('NoName'))
         let usernameAds = allAdverts.filter(ad => ad.includes('UserName'))
@@ -56,7 +56,11 @@ export default function PhaseTwo({adverts, endPhaseTwo}) {
             tmpArray[j] = temp
         }
 
-        setSeenAdverts(tmpArray)
+        setImages(tmpArray)
+    }
+
+    useEffect(() => {
+        initImages()
     },[])        
 
 
@@ -66,17 +70,17 @@ export default function PhaseTwo({adverts, endPhaseTwo}) {
                 <h4 className='phase-two-hint'>Please select all the images that you have seen</h4>
             </div>
             <div className='phase-two-image-grid'>
-                {seenAdverts && seenAdverts.map((ad, index) => {
+                {images && images.map((img, index) => {
                     return (
                         <div    key={index} 
-                                className={`phase-two-image-container ${ad[1] && 'selected'}`}
+                                className={`phase-two-image-container ${img[1] && 'selected'}`}
                                 onClick={() => {
-                                    const tmpArray = [...seenAdverts]
+                                    const tmpArray = [...images]
                                     tmpArray[index][1] = !tmpArray[index][1]
-                                    setSeenAdverts(tmpArray)
+                                    setImages(tmpArray)
                                 }}>
-                            <img    src={`${process.env.PUBLIC_URL}/assets/images/blanks/${ad[0]}`} 
-                                    alt='ad' 
+                            <img    src={`${process.env.PUBLIC_URL}/assets/images/blanks/${img[0]}`} 
+                                    alt={img[0]} 
                                     className='phase-two-image'/>
                         </div>
                     )})
@@ -84,7 +88,7 @@ export default function PhaseTwo({adverts, endPhaseTwo}) {
             </div>
             <div className='phase-two-button-container'>
                 <button onClick={() => {
-                    endPhaseTwo([...seenAdverts])
+                    endPhaseTwo([...images])
                 }}>Submit</button>
             </div>
             
