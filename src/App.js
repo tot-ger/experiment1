@@ -5,17 +5,6 @@ import PhaseTwo from './PhaseTwo';
 
 import './App.css';
 
-function downloadLog(log, username) {
-  const element = document.createElement("a");
-  const file = new Blob([log], {type: 'text/plain'});
-  const timestamp = new Date().toISOString().replace(/:/g, "-");
-  const filename = username.replace(' ', '_').toLowerCase() + timestamp + "_log.txt";
-  element.href = URL.createObjectURL(file);
-  element.download = filename;
-  document.body.appendChild(element); // Required for this to work in FireFox
-  element.click();
-}
-
 function App() {
   const [isPhaseOneStarted, setIsPhaseOneStarted] = useState(false)
   const [isPhaseOneFinished, setIsPhaseOneFinished] = useState(false)
@@ -25,7 +14,6 @@ function App() {
   const log = useRef(null)
   const advertsRef = useRef(null)
   
-
   function handleNameInputChange(e) {
     setUsername(e.target.value)
   }
@@ -68,7 +56,18 @@ function App() {
   function endPhaseTwo(phaseTwoLog) {
     log.current = {...log.current, phaseTwoLog: phaseTwoLog}
     setIsPhaseTwoFinished(true)
-    downloadLog(JSON.stringify(log.current), username)
+    downloadLog()
+  }
+
+  function downloadLog() {
+    const element = document.createElement("a");
+    const file = new Blob([JSON.stringify(log.current)], {type: 'text/plain'});
+    const timestamp = new Date().toISOString().replace(/:/g, "-");
+    const filename = username.replace(' ', '_').toLowerCase() + timestamp + "_log.txt";
+    element.href = URL.createObjectURL(file);
+    element.download = filename;
+    document.body.appendChild(element);
+    element.click();
   }
 
   return (
