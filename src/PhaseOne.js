@@ -11,7 +11,7 @@ let feedArr = []
 
 export default function PhaseOne({ endPhaseOne, username }) {
     
-    const maxRounds = 1
+    const maxRounds = 2
     const [round, setRound] = useState(1)
     const [isRoundStarted, setIsRoundStarted] = useState(false)
 
@@ -176,10 +176,6 @@ export default function PhaseOne({ endPhaseOne, username }) {
         updateRoundLog(scrollFocusRef.current)
         scrollFocusRef.current = visibleImage.name
     }
-
-    useEffect(() => {
-        updateFeed()
-    },[])
 
     useEffect(() => {
         setIsRoundStarted(false)   
