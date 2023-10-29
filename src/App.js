@@ -103,7 +103,8 @@ function App() {
         {isPhaseTwoStarted && !isPhaseTwoFinished && <PhaseTwo adverts={advertsRef.current} endPhaseTwo={endPhaseTwo}/>}
         {isPhaseTwoFinished && <div className='thank-you-page'>
           <h1>Thank you for your participation in this experiment</h1>
-          <p>You will now be debriefed on the aims of the study.</p>
+          <p>You may exit the booth where you will be asked to complete a questionnaire.</p>
+          <p>After, the details of the experiment will be explained to you.</p>
         </div>}
     </div>
   );

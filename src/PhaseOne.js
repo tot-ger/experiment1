@@ -11,7 +11,7 @@ let feedArr = []
 
 export default function PhaseOne({ endPhaseOne, username }) {
     
-    const maxRounds = 10
+    const maxRounds = 1
     const [round, setRound] = useState(1)
     const [isRoundStarted, setIsRoundStarted] = useState(false)
 
